@@ -31,7 +31,7 @@ with opener(vcf_in, 'r') as tsvin:
     tsvin = csv.reader(tsvin, delimiter='\t')
     for row in tsvin:
         if any('##' in strings for strings in row):
-            if any('##contig=<ID=' in row):
+            if any(r'##contig=' in row):
                 if any(chroms in row for chroms in chromlist ):
                     out_vcf.write(row)
                 else:
