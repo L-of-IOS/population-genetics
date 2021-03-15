@@ -22,7 +22,7 @@ else:
     opener = open
 #out_chr = args.chromosome
 with open(chrom_in,"r") as chrom_in_list:
-    chromlist = chrom_in_list.readline()
+    chromlist = chrom_in_list.read().split()
 
 
 out_vcf = open(out_name+"nocontig.vcf",mode = "w")
@@ -44,7 +44,7 @@ with opener(vcf_in, 'r') as tsvin:
         if '#CHROM' in row:
             out_vcf.writelines(row)
             continue
-        chrom,pos,id,ref,alt,qual,filter,info,format=row[0:9]
+        chrom,pos,id,ref,alt,qual,filter,info,format=row.strip().split("\t")[0:9]
         haplotypes = row[9:]
         if chrom in chromlist:
             out_vcf.writelines(row)
