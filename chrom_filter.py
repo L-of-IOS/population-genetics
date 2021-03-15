@@ -33,17 +33,20 @@ with opener(vcf_in, 'r') as tsvin:
         if any('##' in strings for strings in row):
             if any('##contig=<ID=' in strings for strings in row):
                 if any(chroms in row for chroms in chromlist ):
-                    out_vcf.write(row)
+                    out_vcf.writeline(row)
+                    continue
                 else:
-                    pass
+                    continue
             else:
-                "remain"
+                out_vcf.writeline(row)
+                continue
         if any('#CHROM' in strings for strings in row):
-            out_vcf.write(row)
+            out_vcf.writeline(row)
+            continue
         chrom,pos,id,ref,alt,qual,filter,info,format=row[0:9]
         haplotypes = row[9:]
         if chrom in chromlist:
-            out_vcf.write(row)
+            out_vcf.writeline(row)
         rows_finished+=1
         if round(rows_finished) == rows_finished/500000:
             print(str(rows_finished)+" rows finished, now on chr "+chrom)
