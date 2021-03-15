@@ -10,6 +10,7 @@ parser.add_argument("-o", "--out", action="store", required=True, help="Output f
 parser.add_argument("-c", "--chrom_list", action="store", required=True, help="indiviul file with chromosome list to output. Should be something in the first column of the vcf.")
 parser.add_argument("-g", "--gzip", action="store_true", required=False, help="Set if the VCF is gzipped.")
 
+args = parser.parse_args()
 vcf_in = args.vcf
 out_name = args.out
 chrom_in = args.chrom_list
