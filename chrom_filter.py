@@ -25,7 +25,7 @@ with open(chrom_in,"r") as chrom_in_list:
     chromlist = chrom_in_list.readline()
 
 
-out_vcf = open(out_name+"nocontig.vcf",mode = w)
+out_vcf = open(out_name+"nocontig.vcf",mode = "w")
 
 with opener(vcf_in, 'r') as tsvin:
     tsvin = csv.reader(tsvin, delimiter='\t')
