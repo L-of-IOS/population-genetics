@@ -26,7 +26,9 @@ with open(chrom_in,"r") as chrom_in_list:
 
 
 out_vcf = open(out_name+"nocontig.vcf",mode = "w")
-writein = out_vcf.writelines(row)
+
+
+
 with opener(vcf_in, 'r') as tsvin:
     tsvin = csv.reader(tsvin, delimiter='\t')
     for row in tsvin:
@@ -34,21 +36,21 @@ with opener(vcf_in, 'r') as tsvin:
             row.append("\n")
             if any('##contig=<ID=' in strings for strings in row):
                 if any(chroms in row for chroms in chromlist ):
-                    writein
+                    out_vcf.writelines(row)
                     continue
                 else:
                     continue
             else:
-                writein
+                out_vcf.writelines(row)
                 continue
         if any('#CHROM' in strings for strings in row):
-            writein
+            out_vcf.writelines(row)
             continue
         chrom,pos,id,ref,alt,qual,filter,info,format=row[0:9]
         row.append("\n")
         haplotypes = row[9:]
         if chrom in chromlist:
-            writein
+            out_vcf.writelines(row)
         rows_finished+=1
         if round(rows_finished) == rows_finished/500000:
             print(str(rows_finished)+" rows finished, now on chr "+chrom)
