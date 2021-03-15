@@ -28,8 +28,6 @@ out_vcf = open(out_name+"nocontig.vcf",mode = w)
 
 with opener(vcf_in, 'r') as tsvin:
     tsvin = csv.reader(tsvin, delimiter='\t')
-##假如这一行是双注释，而且这一行里的字符串里面没有contig=<ID=
-    #，那么，这一行就应该原封不动地写入
     for row in tsvin:
         if any('##' in strings for strings in row):
             if any('##contig=<ID=' in row):
@@ -46,7 +44,7 @@ with opener(vcf_in, 'r') as tsvin:
         if chrom in chromlist:
             out_vcf.write(row)
         rows_finished+=1
-        if round(rows_finished) = rows_finished/500000:
+        if round(rows_finished) == rows_finished/500000:
             print(str(rows_finished)+" rows finished, now on chr "+chrom)
     print("done")
         
