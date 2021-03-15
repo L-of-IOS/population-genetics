@@ -30,11 +30,9 @@ out_vcf = open(out_name+"nocontig.vcf",mode = "w")
 
 
 with opener(vcf_in, 'r') as tsvin:
-    tsvin = csv.reader(tsvin, delimiter='\t')
     for row in tsvin:
-        if any('##' in strings for strings in row):
-            row.append("\n")
-            if any('##contig=<ID=' in strings for strings in row):
+        if '##'  in row:
+            if '##contig=<ID='  in row:
                 if any(chroms in row for chroms in chromlist ):
                     out_vcf.writelines(row)
                     continue
@@ -43,11 +41,10 @@ with opener(vcf_in, 'r') as tsvin:
             else:
                 out_vcf.writelines(row)
                 continue
-        if any('#CHROM' in strings for strings in row):
+        if '#CHROM' in row:
             out_vcf.writelines(row)
             continue
         chrom,pos,id,ref,alt,qual,filter,info,format=row[0:9]
-        row.append("\n")
         haplotypes = row[9:]
         if chrom in chromlist:
             out_vcf.writelines(row)
