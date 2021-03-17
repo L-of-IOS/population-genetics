@@ -1,22 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-This file only pick the gene type of the reserved gene and output it.
-tips:
-1. pass those ##
-2. from #CHROM row, get all samples
-3. read REF col and ALT col
-4. write: use a lot of memory, or just write in 10 files? No, I prefer run over and over
 
-
-"""
 
 import argparse
 import gzip
 import csv
 
-parser = argparse.ArgumentParser(description="script to convert an all sites vcf to sweepfinder format. FASTA description will be the sample name in the VCF header.Only does one chromosome/region at a time.")
+parser = argparse.ArgumentParser(description="script to convert an all sites vcf to fasta format. FASTA description will be the sample name in the VCF header.")
 parser.add_argument("-v", "--vcf", action="store", required=True, help="Input VCF file. Should be a multisample vcf, though it should theoretically work with a single sample.")
 parser.add_argument("-o", "--out", action="store", required=True, help="Output filename")
 parser.add_argument("-g", "--gzip", action="store_true", required=False, help="Set if the VCF is gzipped.")
@@ -70,7 +61,7 @@ for sample_index,sample in enumerate(sample_seqs):
                 continue
             chrom,pos,id,ref,alt,qual,filter,info,format=row[0:9]
             haplotypes = row[9:]
-            alt.replace('*',"N")
+            alt = alt.replace("*","N")
             alt_list = alt.split(",")
             haplotype = haplotypes[sample_index]
             
