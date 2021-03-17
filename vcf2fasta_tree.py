@@ -70,16 +70,17 @@ for sample_index,sample in enumerate(sample_seqs):
                 continue
             chrom,pos,id,ref,alt,qual,filter,info,format=row[0:9]
             haplotypes = row[9:]
+            alt.replace('*',"N")
             alt_list = alt.split(",")
             haplotype = haplotypes[sample_index]
             
             if not any(i in haplotype.split(":")[0] for i in ["0","1","2","3"]):
                 fasta_out.write("N")
-            elif haplotype.split(":")[0].count("3") !=0 and alt_list[2] not in ["*."]:
+            elif haplotype.split(":")[0].count("3") !=0 :
                 fasta_out.write(alt_list[2])
-            elif haplotype.split(":")[0].count("2") !=0 and alt_list[1] not in ["*."]:
+            elif haplotype.split(":")[0].count("2") !=0 :
                 fasta_out.write(alt_list[1])
-            elif haplotype.split(":")[0].count("1") !=0 and alt_list[0] not in ["*."]:
+            elif haplotype.split(":")[0].count("1") !=0 :
                 fasta_out.write(alt_list[0])
             else :
                 fasta_out.write(ref)
