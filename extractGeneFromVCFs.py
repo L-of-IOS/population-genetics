@@ -75,7 +75,7 @@ with opener(vcf_in, 'r') as tsvin:
                     ##if  bin_in<pos<bin_out
                     notes = info.split("|")[1:]
                     notes = '|'.join(notes)
-                    out_file.write(chrom+"\t"+str(pos)+"\t"+notes)
+                    out_file.write(chrom+"\t"+str(pos)+"\t"+notes+"\n")
                 else:continue
 
 
