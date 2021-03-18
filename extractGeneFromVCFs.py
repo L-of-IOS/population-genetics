@@ -68,15 +68,11 @@ with opener(vcf_in, 'r') as tsvin:
             haplotypes = row[9:]            
             if not any(chrom  in i.CHR for i in windows):
                 continue
-            else:
-                if all(int(pos) < k for k in [int(i.bin_in) for i in windows if chrom == i.CHR ]):
-                    continue
-                elif all(int(pos) < k for k in [int(i.bin_out) for i in windows if chorom ==i.CHR and int(i.bin_in) >= int(pos)]) :
-                    ##if  bin_in<pos<bin_out
+            elif all(int(pos) < k for k in [int(i.bin_out) for i in windows if chrom ==i.CHR and int(i.bin_in) >= int(pos)]) :
+                    ##if  bin_in<pos<bin_out and chr == chr
                     notes = info.split("|")[1:]
                     notes = '|'.join(notes)
                     out_file.write(chrom+"\t"+str(pos)+"\t"+notes+"\n")
-                else:continue
 
 
 
