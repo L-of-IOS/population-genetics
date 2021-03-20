@@ -68,7 +68,7 @@ with opener(vcf_in, 'r') as tsvin:
             haplotypes = row[9:]            
             if not any(chrom  in i.CHR for i in windows):
                 continue
-            real_window = [i for i in windows if (chrom == i.CHR) and (i.bin_in <= pos <= i.bin_out)]
+            real_window = [i for i in windows if (chrom == i.CHR) and (int(i.bin_in) <= int(pos) <= int(i.bin_out))]
             if len(real_window) >0:
                 ##if  bin_in<pos<bin_out and chr == chr
                 notes = info.split("|")[1:]
